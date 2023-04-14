@@ -15,6 +15,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.aurgiyalgo.SlimefunNukes.items.Nuke;
@@ -23,6 +24,9 @@ import com.aurgiyalgo.SlimefunNukes.recipes.NukeRecipe;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
+
+import net.coreprotect.CoreProtect;
+import net.coreprotect.CoreProtectAPI;
 
 public class SlimefunNukes extends JavaPlugin implements SlimefunAddon {
 	
@@ -38,7 +42,27 @@ public class SlimefunNukes extends JavaPlugin implements SlimefunAddon {
 	private boolean usingWG;
 	
 	private YamlConfiguration configuration;
-	
+	public CoreProtectAPI getCoreProtect() {
+		Plugin plugin = getServer().getPluginManager().getPlugin("CoreProtect");
+
+		// Check that CoreProtect is loaded
+		if (plugin == null || !(plugin instanceof CoreProtect)) {
+			return null;
+		}
+
+		// Check that the API is enabled
+		CoreProtectAPI CoreProtect = ((CoreProtect) plugin).getAPI();
+		if (CoreProtect.isEnabled() == false) {
+			return null;
+		}
+
+		// Check that a compatible version of the API is loaded
+		if (CoreProtect.APIVersion() < 9) {
+			return null;
+		}
+
+		return CoreProtect;
+	}
 	public void onEnable() {
 		instance = this;
 		

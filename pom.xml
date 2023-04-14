@@ -16,6 +16,10 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+		<repository>
+			<id>coreprotect</id>
+			<url>https://maven.playpro.com</url>
+		</repository>
 	</repositories>
 
 	<build>
@@ -50,7 +54,13 @@
 		<dependency>
 			<groupId>com.github.TownyAdvanced</groupId>
 			<artifactId>Towny</artifactId>
-			<version>0.96.2.0</version>
+			<version>0.99.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.coreprotect</groupId>
+			<artifactId>coreprotect</artifactId>
+			<version>21.3</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

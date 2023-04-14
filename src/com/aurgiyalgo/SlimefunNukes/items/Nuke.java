@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import net.coreprotect.CoreProtectAPI;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -65,6 +66,7 @@ public class Nuke extends SlimefunItem implements Radioactive {
 					AtomicReference<Integer> iteratorCount = new AtomicReference<Integer>();
 					iteratorCount.set(0);
 					int blocksPerSecond = Configuration.BLOCKS_PER_SECOND;
+					CoreProtectAPI coreProtectAPI = SlimefunNukes.getInstance().getCoreProtect();
 					BukkitRunnable sphereRemoveBlocksTask = new BukkitRunnable() {
 						
 						@Override
@@ -72,6 +74,7 @@ public class Nuke extends SlimefunItem implements Radioactive {
 							if (sphereBlocks.size() - iteratorCount.get() < blocksPerSecond) {
 								for (Location l : sphereBlocks) {
 									if (BlockStorage.hasBlockInfo(l)) continue;
+									if (coreProtectAPI != null) coreProtectAPI.logRemoval("Nuke", l, l.getBlock().getType(), null);
 									l.getBlock().setType(Material.AIR);
 								}
 								cancel();
